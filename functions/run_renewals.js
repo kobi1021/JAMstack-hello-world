@@ -1,10 +1,7 @@
 'use strict'
 
-var co = require('co')
-var mongoose = require('mongoose')
-
-import co from 'co'
-import mongoose from 'mongoose'
+const co = require('co')
+const mongoose = require('mongoose')
 
 let conn = null
 
