@@ -1,7 +1,7 @@
 'use strict'
 
 //const co = require('co')
-//const mongoose = require('mongoose')
+const mongoose = require('mongoose')
 
 let conn = null
 
