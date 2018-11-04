@@ -1,7 +1,7 @@
 'use strict'
 
-const co = require('co')
-const mongoose = require('mongoose')
+//const co = require('co')
+//const mongoose = require('mongoose')
 
 let conn = null
 
@@ -16,14 +16,15 @@ const { DBUSER, DBPASS } = process.env
 
 exports.handler = function(event, context, callback) {
   context.callbackWaitsForEmptyEventLoop = false
-
+  /*
   run()
     .then(res => {
       callback(null, res)
     })
     .catch(error => callback(error))
+*/
 }
-
+/*
 function run() {
   return co(function*() {
     if (conn == null) {
@@ -54,4 +55,4 @@ function run() {
     }
     return response
   })
-}
+}*/
