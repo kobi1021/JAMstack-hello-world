@@ -1,5 +1,5 @@
-var co = require('co')
-var mongoose = require('mongoose')
+import co from 'co'
+import mongoose from 'mongoose'
 
 let conn = null
 
