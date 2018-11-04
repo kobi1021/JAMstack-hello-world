@@ -1,42 +1,55 @@
-const mongoose = require('mongoose')
+var co = require('co')
+var mongoose = require('mongoose')
 
-mongoose.connect(
+let conn = null
+
+const uri =
   'mongodb://' +
-    DBUSER +
-    ':' +
-    DBPASS +
-    '@ds151753.mlab.com:51753/renewalreminder'
-)
+  DBUSER +
+  ':' +
+  DBPASS +
+  '@ds151753.mlab.com:51753/renewalreminder'
 
-var db = mongoose.connection
-db.on('error', console.error.bind(console, 'connection error:'))
-db.once('open', function() {
-  // we're connected!
-})
+const { DBUSER, DBPASS } = process.env
 
-const Schema = mongoose.Schema
+exports.handler = function(event, context, callback) {
+  context.callbackWaitsForEmptyEventLoop = false
 
-const customerSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  phone: String,
-  payDay: String,
-  policyStatus: String,
-  notes: String,
-  updated_At: { type: Date, default: Date.now },
-})
+  run()
+    .then(res => {
+      callback(null, res)
+    })
+    .catch(error => callback(error))
+}
 
-const Customer = mongoose.model('Customer', customerSchema)
-
-const { GREETING, DBUSER, DBPASS } = process.env
-
-exports.handler = async (event, context) => {
-  // get all the customers
-  Customer.find({}, function(err, customers) {
-    if (err) throw err
-    return {
-      statusCode: 200,
-      body: customers,
+function run() {
+  return co(function*() {
+    if (conn == null) {
+      conn = yield mongoose.createConnection(uri, {
+        bufferCommands: false,
+        bufferMaxEntries: 0,
+      })
+      conn.model(
+        'customers',
+        new mongoose.Schema({
+          firstName: String,
+          lastName: String,
+          phone: String,
+          payDay: String,
+          amount: String,
+          notes: String,
+          updated_At: { type: Date, default: Date.now },
+        })
+      )
     }
+
+    const M = conn.model('customers')
+
+    const doc = yield M.find()
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify(doc),
+    }
+    return response
   })
 }
