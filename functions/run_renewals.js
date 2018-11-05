@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+const conn = null
+
 const { DBUSER, DBPASS } = process.env
 
 const uri =
@@ -19,7 +21,7 @@ exports.handler = function(event, context, callback) {
     .catch(error => callback(error))
 
   function run() {
-    var conn = mongoose
+    conn = mongoose
       .createConnection(uri, {
         bufferCommands: false,
         bufferMaxEntries: 0,
