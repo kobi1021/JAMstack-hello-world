@@ -37,7 +37,7 @@ exports.handler = function(event, context, callback) {
   const doc = M.find()
   const response = {
     statusCode: 200,
-    body: JSON.stringify(doc),
+    body: doc,
   }
   console.log(uri)
   return response
