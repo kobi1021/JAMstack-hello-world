@@ -11,9 +11,9 @@ const uri =
   DBPASS +
   '@ds151753.mlab.com:51753/renewalreminder'
 
-//exports.handler = function(event, context, callback) {
-exports.handler = async (event, context) => {
-  //context.callbackWaitForEmptyEventLoop = false
+exports.handler = function(event, context, callback) {
+  //exports.handler = async (event, context) => {
+  context.callbackWaitForEmptyEventLoop = false
 
   conn = mongoose
     .createConnection(uri, {
@@ -24,10 +24,18 @@ exports.handler = async (event, context) => {
     .then(
       () => {
         console.log('MongoDB: Connection successful!')
-      },
-      err => {
+        callback(null, {
+          statusCode: 200,
+          body: 'Success!',
+        })
+      })
+      .catch(
         console.error('MongoDB: ' + err)
-      }
+        callback(null, {
+            statusCode: 400,
+            body: "MongoDB: Connection failed!"
+        })
+      )
     )
   /*
     const M = conn.model(
@@ -52,10 +60,4 @@ exports.handler = async (event, context) => {
     //console.log(uri)
     return response
     */
-  const response = {
-    statusCode: 200,
-    body: 'Success!',
-  }
-  return response
-  //callback(null, response)
 }
