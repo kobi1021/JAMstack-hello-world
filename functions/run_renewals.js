@@ -29,13 +29,12 @@ exports.handler = function(event, context, callback) {
           body: 'Success!',
         })
       })
-      .catch(
+    .catch(
         console.error('MongoDB: ' + err)
         callback(null, {
             statusCode: 400,
             body: "MongoDB: Connection failed!"
         })
-      )
     )
   /*
     const M = conn.model(
