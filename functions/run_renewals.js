@@ -1,3 +1,4 @@
+'use strict'
 const mongoose = require('mongoose')
 
 let conn = null
@@ -12,9 +13,8 @@ const uri =
   '@ds151753.mlab.com:51753/renewalreminder'
 
 exports.handler = function(event, context, callback) {
-  //exports.handler = async (event, context) => {
   context.callbackWaitForEmptyEventLoop = false
-
+  /*
   conn = mongoose
     .createConnection(uri, {
       bufferCommands: false,
@@ -28,12 +28,16 @@ exports.handler = function(event, context, callback) {
         body: 'Success!',
       })
     })
-    .catch(
+    .catch(error =>
       callback(null, {
         statusCode: 400,
         body: 'MongoDB: Connection failed!',
       })
-    )
+    )*/
+  callback(null, {
+    statusCode: 200,
+    body: 'Success!',
+  })
   /*
     const M = conn.model(
       'Customer',
