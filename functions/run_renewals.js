@@ -14,11 +14,17 @@ const uri =
 exports.handler = function(event, context, callback) {
   //context.callbackWaitsForEmptyEventLoop = false
 
-  conn = mongoose.createConnection(uri, {
-    bufferCommands: false,
-    bufferMaxEntries: 0,
-    useNewUrlParser: true,
-  })
+  conn = mongoose
+    .connect(
+      uri,
+      {
+        bufferCommands: false,
+        bufferMaxEntries: 0,
+        useNewUrlParser: true,
+      }
+    )
+    .then(() => console.log('MongoDB: Connection succesful!'))
+    .catch(err => console.error('MongoDB: ' + err))
 
   const M = conn.model(
     'Customer',
