@@ -19,8 +19,8 @@ exports.handler = function(event, context, callback) {
     bufferMaxEntries: 0,
   })
 
-  conn.model(
-    'customers',
+  const M = conn.model(
+    'Customer',
     new mongoose.Schema({
       firstName: String,
       lastName: String,
@@ -32,9 +32,8 @@ exports.handler = function(event, context, callback) {
     })
   )
 
-  const M = conn.model('customers')
-
   const doc = M.find()
+  console.log(doc)
   const response = {
     statusCode: 200,
     body: doc,
