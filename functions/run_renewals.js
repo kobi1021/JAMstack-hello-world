@@ -34,8 +34,7 @@ exports.handler = function(event, context, callback) {
         callback(null, {
             statusCode: 400,
             body: "MongoDB: Connection failed!"
-        })
-    )
+        }))
   /*
     const M = conn.model(
       'Customer',
