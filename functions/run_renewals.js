@@ -12,8 +12,6 @@ const uri =
   '@ds151753.mlab.com:51753/renewalreminder'
 
 exports.handler = function(event, context, callback) {
-  //context.callbackWaitsForEmptyEventLoop = false
-
   conn = mongoose
     .createConnection(uri, {
       bufferCommands: false,
@@ -23,13 +21,13 @@ exports.handler = function(event, context, callback) {
     .then(
       () => {
         console.log('MongoDB: Connection successful!')
+        return 'Connection successful!'
       },
       err => {
         console.error('MongoDB: ' + err)
         return err
       }
     )
-  const response = 'Connection successful!'
   /*
   const M = conn.model(
     'Customer',
@@ -51,6 +49,6 @@ exports.handler = function(event, context, callback) {
     body: JSON.stringify(doc),
   }
   //console.log(uri)
-  */
   return response
+  */
 }
