@@ -23,11 +23,9 @@ exports.handler = function(event, context, callback) {
     .then(
       () => {
         console.log('MongoDB: Connection successful!')
-        callback(null, 'Success!')
       },
       err => {
         console.error('MongoDB: ' + err)
-        callback(err)
       }
     )
   /*
@@ -53,4 +51,9 @@ exports.handler = function(event, context, callback) {
     //console.log(uri)
     return response
     */
+  const response = {
+    statusCode: 200,
+    body: 'Success!',
+  }
+  callback(null, response)
 }
