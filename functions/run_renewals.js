@@ -14,7 +14,7 @@ const uri =
 exports.handler = function(event, context, callback) {
   //context.callbackWaitsForEmptyEventLoop = false
 
-  conn = yield mongoose.createConnection(uri, {
+  conn = mongoose.createConnection(uri, {
     bufferCommands: false,
     bufferMaxEntries: 0,
   })
@@ -34,10 +34,10 @@ exports.handler = function(event, context, callback) {
 
   const M = conn.model('customers')
 
-  const doc = yield M.find()
+  const doc = M.find()
   const response = {
-      statusCode: 200,
-      body: JSON.stringify(doc),
+    statusCode: 200,
+    body: JSON.stringify(doc),
   }
   console.log(uri)
   return response
