@@ -20,11 +20,9 @@ exports.handler = function(event, context, callback) {
         bufferCommands: false,
         bufferMaxEntries: 0,
         useNewUrlParser: true,
-        useMongoClient: false,
       }
     )
     .then(ee => {
-      // prepare your response
       response = { hello: 'world' }
     })
     .then(() => {
