@@ -1,7 +1,5 @@
 const mongoose = require('mongoose')
 
-let conn = null
-
 const { DBUSER, DBPASS } = process.env
 
 const uri =
@@ -21,7 +19,7 @@ exports.handler = function(event, context, callback) {
     .catch(error => callback(error))
 
   function run() {
-    conn = mongoose
+    var conn = mongoose
       .createConnection(uri, {
         bufferCommands: false,
         bufferMaxEntries: 0,
@@ -37,7 +35,7 @@ exports.handler = function(event, context, callback) {
           return err
         }
       )
-
+    /*
     const M = conn.model(
       'Customer',
       new mongoose.Schema({
@@ -59,5 +57,6 @@ exports.handler = function(event, context, callback) {
     }
     //console.log(uri)
     return response
+    */
   }
 }
