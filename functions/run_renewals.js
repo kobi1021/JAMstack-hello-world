@@ -32,7 +32,7 @@ exports.handler = function(event, context, callback) {
         return err
       }
     )
-
+  /*
   const M = conn.model(
     'Customer',
     new mongoose.Schema({
@@ -54,4 +54,5 @@ exports.handler = function(event, context, callback) {
   }
   //console.log(uri)
   return response
+  */
 }
