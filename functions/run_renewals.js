@@ -15,6 +15,22 @@ const uri =
 
 exports.handler = function(event, context, callback) {
   context.callbackWaitForEmptyEventLoop = false
+
+  co(function*() {
+    if (conn == null) {
+      conn = yield mongoose.createConnection(uri, {
+        bufferCommands: false,
+        bufferMaxEntries: 0,
+        useNewUrlParser: true,
+      })
+    }
+    console.log('Success!')
+    callback(null, {
+      statusCode: 200,
+      body: 'Success!',
+    })
+  }).catch(onerror)
+
   /*
   conn = mongoose
     .createConnection(uri, {
@@ -35,11 +51,6 @@ exports.handler = function(event, context, callback) {
         body: 'MongoDB: Connection failed!',
       })
     )*/
-  console.log('Success!')
-  callback(null, {
-    statusCode: 200,
-    body: 'Success!',
-  })
   /*
     const M = conn.model(
       'Customer',
@@ -63,4 +74,11 @@ exports.handler = function(event, context, callback) {
     //console.log(uri)
     return response
     */
+}
+
+function onerror(err) {
+  // log any uncaught errors
+  // co will not throw any errors you do not handle!!!
+  // HANDLE ALL YOUR ERRORS!!!
+  console.error(err.stack)
 }
