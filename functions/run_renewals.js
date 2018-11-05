@@ -17,6 +17,7 @@ exports.handler = function(event, context, callback) {
   conn = mongoose.createConnection(uri, {
     bufferCommands: false,
     bufferMaxEntries: 0,
+    useNewUrlParser: true,
   })
 
   const M = conn.model(
@@ -33,11 +34,11 @@ exports.handler = function(event, context, callback) {
   )
 
   const doc = M.find()
-  console.log(doc)
+  //console.log(doc)
   const response = {
     statusCode: 200,
-    body: doc,
+    body: JSON.Stringify(doc),
   }
-  console.log(uri)
+  //console.log(uri)
   return response
 }
