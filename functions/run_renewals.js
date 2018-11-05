@@ -37,7 +37,7 @@ exports.handler = function(event, context, callback) {
   //console.log(doc)
   const response = {
     statusCode: 200,
-    body: JSON.Stringify(doc),
+    body: JSON.stringify(doc),
   }
   //console.log(uri)
   return response
