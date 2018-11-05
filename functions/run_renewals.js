@@ -14,8 +14,11 @@ exports.handler = function(event, context, callback) {
   run()
     .then(res => {
       callback(null, res)
-      return res
       console.log('done')
+      return {
+        statusCode: 200,
+        body: res,
+      }
     })
     .catch(error => callback(error))
 }
