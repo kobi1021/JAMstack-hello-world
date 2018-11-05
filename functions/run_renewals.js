@@ -21,20 +21,19 @@ exports.handler = function(event, context, callback) {
       bufferMaxEntries: 0,
       useNewUrlParser: true,
     })
-    .then(
-      () => {
-        console.log('MongoDB: Connection successful!')
-        callback(null, {
-          statusCode: 200,
-          body: 'Success!',
-        })
+    .then(() => {
+      console.log('MongoDB: Connection successful!')
+      callback(null, {
+        statusCode: 200,
+        body: 'Success!',
       })
+    })
     .catch(
-        console.error('MongoDB: ' + err)
-        callback(null, {
-            statusCode: 400,
-            body: "MongoDB: Connection failed!"
-        }))
+      callback(null, {
+        statusCode: 400,
+        body: 'MongoDB: Connection failed!',
+      })
+    )
   /*
     const M = conn.model(
       'Customer',
