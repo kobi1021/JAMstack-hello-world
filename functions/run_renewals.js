@@ -11,8 +11,9 @@ const uri =
   DBPASS +
   '@ds151753.mlab.com:51753/renewalreminder'
 
-exports.handler = function(event, context, callback) {
-  context.callbackWaitForEmptyEventLoop = false
+//exports.handler = function(event, context, callback) {
+exports.handler = async (event, context) => {
+  //context.callbackWaitForEmptyEventLoop = false
 
   conn = mongoose
     .createConnection(uri, {
@@ -55,5 +56,6 @@ exports.handler = function(event, context, callback) {
     statusCode: 200,
     body: 'Success!',
   }
-  callback(null, response)
+  return response
+  //callback(null, response)
 }
