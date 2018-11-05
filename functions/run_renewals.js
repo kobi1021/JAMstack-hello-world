@@ -4,14 +4,9 @@ var co = require('co')
 
 let conn = null
 
-const { DBUSER, DBPASS } = process.env
+const { DBUSER, DBPASS, DBPATH } = process.env
 
-const uri =
-  'mongodb://' +
-  DBUSER +
-  ':' +
-  DBPASS +
-  '@ds151753.mlab.com:51753/renewalreminder'
+const uri = 'mongodb://' + DBUSER + ':' + DBPASS + '@' + DBPATH
 
 exports.handler = function(event, context, callback) {
   context.callbackWaitForEmptyEventLoop = false
