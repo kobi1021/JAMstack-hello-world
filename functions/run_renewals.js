@@ -14,30 +14,23 @@ const uri =
 exports.handler = function(event, context, callback) {
   context.callbackWaitForEmptyEventLoop = false
 
-  run()
-    .then(res => {
-      callback(null, res)
+  conn = mongoose
+    .createConnection(uri, {
+      bufferCommands: false,
+      bufferMaxEntries: 0,
+      useNewUrlParser: true,
     })
-    .catch(error => callback(error))
-
-  function run() {
-    conn = mongoose
-      .createConnection(uri, {
-        bufferCommands: false,
-        bufferMaxEntries: 0,
-        useNewUrlParser: true,
-      })
-      .then(
-        () => {
-          console.log('MongoDB: Connection successful!')
-          return 'Success!'
-        },
-        err => {
-          console.error('MongoDB: ' + err)
-          return err
-        }
-      )
-    /*
+    .then(
+      () => {
+        console.log('MongoDB: Connection successful!')
+        callback(null, 'Success!')
+      },
+      err => {
+        console.error('MongoDB: ' + err)
+        callback(err)
+      }
+    )
+  /*
     const M = conn.model(
       'Customer',
       new mongoose.Schema({
@@ -60,5 +53,4 @@ exports.handler = function(event, context, callback) {
     //console.log(uri)
     return response
     */
-  }
 }
