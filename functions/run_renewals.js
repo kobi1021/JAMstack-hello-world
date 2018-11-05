@@ -9,14 +9,39 @@ const { DBUSER, DBPASS, DBPATH } = process.env
 const uri = 'mongodb://' + DBUSER + ':' + DBPASS + '@' + DBPATH
 
 exports.handler = function(event, context, callback) {
-  context.callbackWaitForEmptyEventLoop = false
+  //context.callbackWaitForEmptyEventLoop = false
 
+  let response
+
+  return mongoose
+    .connect(
+      uri,
+      {
+        bufferCommands: false,
+        bufferMaxEntries: 0,
+        useNewUrlParser: true,
+        useMongoClient: false,
+      }
+    )
+    .then(ee => {
+      // prepare your response
+      response = { hello: 'world' }
+    })
+    .then(() => {
+      mongoose.disconnect()
+    })
+    .then(() => {
+      callback(null, response)
+    })
+    .catch(onerror)
+  /*
   co(function*() {
     if (conn == null) {
       conn = yield mongoose.createConnection(uri, {
         bufferCommands: false,
         bufferMaxEntries: 0,
         useNewUrlParser: true,
+        useMongoClient: false,
       })
     }
     console.log('Success!')
@@ -25,7 +50,7 @@ exports.handler = function(event, context, callback) {
       body: 'Success!',
     })
   }).catch(onerror)
-
+*/
   /*
   conn = mongoose
     .createConnection(uri, {
