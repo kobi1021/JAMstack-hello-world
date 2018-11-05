@@ -1,5 +1,6 @@
 'use strict'
-const mongoose = require('mongoose')
+var mongoose = require('mongoose')
+var co = require('co')
 
 let conn = null
 
@@ -34,6 +35,7 @@ exports.handler = function(event, context, callback) {
         body: 'MongoDB: Connection failed!',
       })
     )*/
+  console.log('Success!')
   callback(null, {
     statusCode: 200,
     body: 'Success!',
