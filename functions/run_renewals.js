@@ -1,10 +1,9 @@
+// https://mongoosejs.com/docs/lambda.html
 const co = require('co')
 const mongoose = require('mongoose')
 
 let conn = null
-
 const { DBUSER, DBPASS, DBPATH } = process.env
-
 const uri = 'mongodb://' + DBUSER + ':' + DBPASS + '@' + DBPATH
 
 exports.handler = function(event, context, callback) {
@@ -15,6 +14,7 @@ exports.handler = function(event, context, callback) {
   run()
     .then(res => {
       callback(null, res)
+      return res
       console.log('done')
     })
     .catch(error => callback(error))
