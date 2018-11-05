@@ -23,8 +23,15 @@ exports.handler = function(event, context, callback) {
         useNewUrlParser: true,
       }
     )
-    .then(() => console.log('MongoDB: Connection succesful!'))
-    .catch(err => console.error('MongoDB: ' + err))
+    .then(
+      () => {
+        console.log('MongoDB: Connection succesful!')
+      },
+      err => {
+        console.error('MongoDB: ' + err)
+        return err
+      }
+    )
 
   const M = conn.model(
     'Customer',
