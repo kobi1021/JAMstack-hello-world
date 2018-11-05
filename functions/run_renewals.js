@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const conn = null
+let conn = null
 
 const { DBUSER, DBPASS } = process.env
 
