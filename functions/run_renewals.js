@@ -5,14 +5,14 @@ const mongoose = require('mongoose')
 
 let conn = null
 
+const { DBUSER, DBPASS } = process.env
+
 const uri =
   'mongodb://' +
   DBUSER +
   ':' +
   DBPASS +
   '@ds151753.mlab.com:51753/renewalreminder'
-
-const { DBUSER, DBPASS } = process.env
 
 exports.handler = function(event, context, callback) {
   context.callbackWaitsForEmptyEventLoop = false
